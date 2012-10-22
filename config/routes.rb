@@ -1,7 +1,10 @@
 FittsLaw::Application.routes.draw do
-  get "home/experiment"
+  root :to => 'home#index'
 
-  get "home/data"
+  get 'experiment' => 'experiment#index'
+  put 'completed' => 'experiment#completed'
+
+  get 'data(.:format)' => 'data#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

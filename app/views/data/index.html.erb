@@ -1,0 +1,22 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>participant</th>
+      <th>pointer</th>
+      <th>distance</th>
+      <th>size</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @trials.each do |trial| %>
+      <tr>
+        <td><%= trial.participant%></td>
+        <td><%= trial.pointer%></td>
+        <td><%= trial.distance%></td>
+        <td><%= trial.size%></td>
+        <td><%= trial.time%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

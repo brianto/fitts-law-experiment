@@ -1,0 +1,53 @@
+<div class="row-fluid">
+  <div class="span12">
+    <h1>Fitt's Law Experiment</h1>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span2">
+  </div>
+  <div class="span8">
+    <p>
+      This experiment studies the effect of target distance and size on the time
+      to click a target. Green circles will be shown in one of four locations
+      around the screen. The objective is to click the green circle as quickly,
+      but accurately as possible. After each click, a green ball in a different
+      location will be shown to you. After 30 successful clicks, the experiment
+      will be over and your click times will be recorded.
+    </p>
+
+    <p>
+      Select which type of input device you will be using to begin.
+    </p>
+  </div>
+  <div class="span2">
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span3"></div>
+
+  <div class="span6">
+    <div id="choices" class="btn-toolbar">
+      <div class="btn-group">
+        <a href="<%= url_for :controller => 'experiment',
+            :action => 'index', :pointer => 'mouse' %>">
+          <button class="btn">Mouse</button>
+        </a>
+
+        <a href="<%= url_for :controller => 'experiment',
+            :action => 'index', :pointer => 'trackpad' %>">
+          <button class="btn">Trackpad</button>
+        </a>
+
+        <a href="<%= url_for :controller => 'experiment',
+            :action => 'index', :pointer => 'tablet' %>">
+          <button class="btn">Tablet</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="span3"></div>
+</div>
