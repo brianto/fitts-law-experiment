@@ -31,19 +31,16 @@
   <div class="span6">
     <div id="choices" class="btn-toolbar">
       <div class="btn-group">
-        <a href="<%= url_for :controller => 'experiment',
-            :action => 'index', :pointer => 'mouse' %>">
-          <button class="btn">Mouse</button>
+        <a href="<%= url_for :controller => 'experiment', :action => 'index' %>">
+          <button id="mouse" class="btn">Mouse</button>
         </a>
 
-        <a href="<%= url_for :controller => 'experiment',
-            :action => 'index', :pointer => 'trackpad' %>">
-          <button class="btn">Trackpad</button>
+        <a href="<%= url_for :controller => 'experiment', :action => 'index' %>">
+          <button id="trackpad" class="btn">Trackpad</button>
         </a>
 
-        <a href="<%= url_for :controller => 'experiment',
-            :action => 'index', :pointer => 'tablet' %>">
-          <button class="btn">Tablet</button>
+        <a href="<%= url_for :controller => 'experiment', :action => 'index' %>">
+          <button id="tablet" class="btn">Tablet</button>
         </a>
       </div>
     </div>
