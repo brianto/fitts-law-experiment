@@ -1,4 +1,8 @@
 FittsLaw::Application.routes.draw do
+  get "home/experiment"
+
+  get "home/data"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
