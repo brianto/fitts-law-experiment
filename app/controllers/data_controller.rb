@@ -10,8 +10,4 @@ class DataController < ApplicationController
       end
     end
   end
-
-  def thankyou
-
-  end
 end

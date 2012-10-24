@@ -14,4 +14,8 @@ class ExperimentController < ApplicationController
       end
     end
   end
+
+  def thankyou
+
+  end
 end
