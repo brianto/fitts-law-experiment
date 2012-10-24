@@ -16,6 +16,9 @@ Array::merge = (other) ->
 Array::random = ->
   this[Math.floor(Math.random() * this.length)]
 
+Array::empty = ->
+  this.length == 0
+
 class Position
   @jumpX = 600
   @jumpY = 200
@@ -65,6 +68,7 @@ class Target
     long: @c
     diagonal: @b
 
+  results: []
   lastClickTime: null
 
   constructor: (raphael) ->
@@ -77,8 +81,11 @@ class Target
       fill: "#c00"
       stroke: 3
 
-    this.goto Target.randomPosition()
-    this.resize Target.randomSize()
+    this.position = Target.randomPosition()
+    this.size = Target.randomSize()
+
+    this.goto this.position
+    this.resize this.size
 
     this.element.toFront()
     this.element.source = this
@@ -94,6 +101,7 @@ class Target
     this.goto this.position.adjacents[transition]
 
   goto: (position) ->
+    this.position = position
     this.element.animate
       cx: position.x
       cy: position.y
@@ -102,14 +110,59 @@ class Target
     this.element.animate
       r: Target.sizes[size]
 
+  invalidate: ->
+    this.lastClickTime = null
+
   clicked: (event) ->
-    alert "oh hey!" # XXX debug
+    time = now()
+
+    if !this.currentTrial?
+      this.lastClickTime = now()
+      this.currentTrial = this.trials.shift()
+      this.advance this.currentTrial
+      return
+
+    if !this.lastClickTime?
+      this.move Target.randomTransition()
+      this.lastClickTime = now()
+      return
+
+    if this.trials.empty()
+      this.finish()
+      return
+
+    result =
+      pointer: $.cookie "pointer"
+      size: this.currentTrial.size
+      distance: this.currentTrial.transition
+      time: time
+
+    this.results.push result
+
+    this.currentTrial = this.trials.shift()
+    this.lastClickTime = time
+
+    this.advance this.currentTrial
+
+  finish: ->
+    this.element.unclick()
+
+    $.ajax
+      type: "POST"
+      url: "/completed"
+      data:
+        results: this.results
+      success: (response, status, request) ->
+        window.location = response.url
 
   @randomPosition: ->
     Target.positions.random()
 
   @randomSize: ->
     ["small", "medium", "large"].random()
+
+  @randomTransition: ->
+    ["short", "long", "diagonal"].random()
 
   _generateTrialParameters: ->
     transitions = []
@@ -124,13 +177,31 @@ class Target
     sizes.shuffle()
 
     trials = []
-    for index in [1..27]
+    for index in [0...transitions.length]
       do (index) ->
         trials.push
           transition: transitions[index]
           size: sizes[index]
 
     this.trials = trials
+
+class Field
+
+  constructor: (raphael, width, height) ->
+    this.raphael = raphael
+
+    this.element = this.raphael.rect 0, 0, width, height
+    this.element.attr "fill", "rgba(0, 0, 0, 0)"
+    this.element.click (event) =>
+      this.clicked event
+
+    this.element.toBack()
+
+  clicked: (event) ->
+    this.target.invalidate()
+
+now = ->
+  new Date().getTime()
 
 viewport = ->
   width = window.innerWidth - 3
@@ -161,13 +232,11 @@ initialize = ->
 
   paper = Raphael "canvas-container", width, height
 
-  background = paper.rect 0, 0, width, height
-
-  background.attr "fill", "#000"
   target = new Target paper
+  field = new Field paper, width, height
 
-  background.click (e) ->
-    alert(e.x + " " + e.y)
+  field.target = target
 
 $(document).ready ->
-  initialize()
+  if $("div#canvas-container")
+    initialize()

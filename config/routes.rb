@@ -2,9 +2,10 @@ FittsLaw::Application.routes.draw do
   root :to => 'home#index'
 
   get 'experiment' => 'experiment#index'
-  put 'completed' => 'experiment#completed'
+  get 'thankyou' => 'experiment#thankyou'
+  post 'completed' => 'experiment#completed', :defaults => { :format => 'json' }
 
-  get 'data(.:format)' => 'data#index'
+  get 'data(.:format)' => 'data#index', :defaults => { :format => 'html' }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

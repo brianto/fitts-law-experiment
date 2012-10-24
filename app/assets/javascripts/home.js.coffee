@@ -5,7 +5,6 @@
 $(document).ready ->
   $("button#mouse").click ->
     $.cookie("pointer", "mouse")
-    alert($.cookie("pointer"))
 
   $("button#trackpad").click ->
     $.cookie("pointer", "trackpad")
