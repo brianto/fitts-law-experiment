@@ -127,16 +127,16 @@ class Target
       this.lastClickTime = now()
       return
 
-    if this.trials.empty()
-      this.finish()
-      return
-
     result =
       size: this.currentTrial.size
       distance: this.currentTrial.transition
       time: time - this.lastClickTime
 
     this.results.push result
+
+    if this.trials.empty()
+      this.finish()
+      return
 
     this.currentTrial = this.trials.shift()
     this.lastClickTime = time
