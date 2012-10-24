@@ -5,11 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-Trial.create(
-  :distance => 27.3,
-  :participant => 'asdf',
-  :pointer => 'mouse',
-  :size => 24,
-  :time => 18
-)

@@ -1,6 +1,6 @@
 class DataController < ApplicationController
   def index
-    @trials = Trial.find :all
+    @trials = Trial.find :all, :include => :subject
 
     respond_to do |format|
       format.html

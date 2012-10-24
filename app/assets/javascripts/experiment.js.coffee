@@ -132,10 +132,9 @@ class Target
       return
 
     result =
-      pointer: $.cookie "pointer"
       size: this.currentTrial.size
       distance: this.currentTrial.transition
-      time: time
+      time: time - this.lastClickTime
 
     this.results.push result
 

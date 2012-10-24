@@ -11,16 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022045450) do
+ActiveRecord::Schema.define(:version => 20121024100720) do
+
+  create_table "subjects", :force => true do |t|
+    t.string   "pointer"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "trials", :force => true do |t|
-    t.decimal  "time"
-    t.decimal  "distance"
-    t.decimal  "size"
-    t.string   "pointer"
-    t.string   "participant"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "time"
+    t.string   "distance",   :default => "distance"
+    t.string   "size",       :default => "size"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.integer  "subject_id"
   end
+
+  add_index "trials", ["subject_id"], :name => "index_trials_on_subject_id"
 
 end

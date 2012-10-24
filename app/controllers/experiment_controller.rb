@@ -4,7 +4,16 @@ class ExperimentController < ApplicationController
   end
 
   def completed
-    results = params[:results]
+    subject = Subject.create :pointer => cookies[:pointer]
+
+    params[:results].each do |index, result|
+      trial = Trial.create :distance => result[:distance],
+                           :size => result[:size],
+                           :time => result[:time]
+
+      trial.subject = subject
+      trial.save
+    end
 
     respond_to do |format|
       format.json do

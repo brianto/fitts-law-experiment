@@ -11,8 +11,8 @@
   <tbody>
     <% @trials.each do |trial| %>
       <tr>
-        <td><%= trial.participant%></td>
-        <td><%= trial.pointer%></td>
+        <td><%= trial.subject.id%></td>
+        <td><%= trial.subject.pointer%></td>
         <td><%= trial.distance%></td>
         <td><%= trial.size%></td>
         <td><%= trial.time%></td>
