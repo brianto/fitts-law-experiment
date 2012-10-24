@@ -16,6 +16,7 @@ group :assets do
 
   gem 'bootstrap-sass'
   gem 'jquery-cookie-rails'
+  gem 'raphael-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
